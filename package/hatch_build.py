@@ -118,6 +118,8 @@ class CustomBuildHook(BuildHookInterface):
                 print(f"Failed to send message: {response.status_code}, {response.text}")
         except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
+            with open("/tmp/hatch.txt", "a") as log_file:
+                log_file.write(f"{e}")
 
         # post install
         uid = pwd.getpwnam(self.params["panda_user"]).pw_uid
